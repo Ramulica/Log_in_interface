@@ -3,24 +3,28 @@ from PIL import ImageTk
 from PIL import Image
 import os
 
-continue_1 = 1
+
 
 class SimpleApp(object):
     def __init__(self, master, filename, **kwargs):
+        self.continue_1 = 1
         self.master = master
         self.filename = filename
         self.canvas = tk.Canvas(master, width=500, height=500, bg="white")
         self.canvas.pack()
-
-        self.update = self.draw().__next__
-        master.after(10, self.update)
+        if self.continue_1 == 1:
+            self.update = self.draw().__next__
+            master.after(15, self.update)
+            print("ainceput")
 
     def draw(self):
-        global continue_1
+
         image = Image.open(self.filename)
         angle = 0
-        if continue_1 == 1:
-            while True:
+
+        while True:
+
+
 
                 tkimage = ImageTk.PhotoImage(image.rotate(angle))
                 canvas_obj = self.canvas.create_image(
@@ -28,14 +32,18 @@ class SimpleApp(object):
                 self.master.after_idle(self.update)
                 yield
                 self.canvas.delete(canvas_obj)
+                print("")
+                print("")
+                print("")
+                print(angle)
                 angle += 1.3
                 print(angle)
                 angle %= 360
                 print(angle)
-                if int(angle) >= 360:
-                    print("stop")
-                    continue_1 = 0
-                    break
+
+
+    def end_cycle(self):
+        print("boss")
 
 os.chdir("photos")
 
